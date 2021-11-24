@@ -42,15 +42,6 @@ int main() {
     return 0;
 }
 
-/*
- * item2.next - > item3; item2.prev -> item1 ...
- *
- *
- * null -> head = item1 -> item2 -> item3 -> ... -> item_n = tail -> null
- *
- *
- *
- * */
 
 
 

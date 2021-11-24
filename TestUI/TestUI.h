@@ -15,12 +15,7 @@ public:
         int amount;
         std::cout << "How many items do you want?" << std::endl;
         std::cin >> amount;
-        try {
-            if (amount < 0) throw RangeException();
-        } catch (RangeException& exception) {
-            std::cerr << exception.what() << std::endl;
-        }
-
+        if (amount < 0) throw RangeException();
         std::cout << "Enter an item" << std::endl;
         Item newItem; int position = 0;
         while (amount > 0) {
@@ -34,7 +29,12 @@ public:
     static void ITest() {
         MyLinkedList<Item> testableList;
         std::cout << "Let's fill our list" << std::endl;
-        TestUI<Item>::InitData(testableList);
+        try {
+            TestUI<Item>::InitData(testableList);
+        } catch (RangeException& exception) {
+            std::cerr << exception.what() << std::endl;
+            return;
+        }
         std::cout << "Here it is: " << std::endl;
         testableList.Print();
         int choice;
