@@ -1,4 +1,5 @@
 #include "TestUI.h"
+#include <list>
 
 void TestMenu() {
     std::cout << "Choose a type for Container test" << std::endl <<
@@ -8,7 +9,7 @@ void TestMenu() {
               "4 - Pair (custom type : Pair = (int : double))" << std::endl;
     int choice; std::cin >> choice;
     try {
-        if (choice < 0 || choice > 4) {
+        if (choice < 1 || choice > 4) {
             throw ChoiceException();
         }
     } catch (ChoiceException& exception) {
@@ -36,23 +37,29 @@ void TestMenu() {
 }
 
 int main() {
-    /*Pair newPair(1,1.0);
-    std::cout << newPair << std::endl;
-    //MyLinkedList<int> intList {1, 2, 3, 4, 5, 6};
-    MyLinkedList<int> intList {1, 2, 3, 4, 5, 6};
-    intList.ReversePrint();
-    intList.Print();
-    intList.SwapTwo(2,3);
-    intList.Print();
-    MyLinkedList<Pair> pairList {Pair(2, -3.1), Pair(-3, 4.2)};
-    pairList.ReversePrint();
-
-    pairList.Add(newPair, 4);
-    pairList.Print();
-    pairList.Delete(1);
-    pairList.Print();
-    pairList.DeleteHead();
-    pairList.Print();*/
     TestMenu();
+    MyLinkedList<int> list;
     return 0;
 }
+
+/*
+ * item2.next - > item3; item2.prev -> item1 ...
+ *
+ *
+ * null -> head = item1 -> item2 -> item3 -> ... -> item_n = tail -> null
+ *
+ *
+ *
+ * */
+
+
+
+
+
+
+
+
+
+
+
+

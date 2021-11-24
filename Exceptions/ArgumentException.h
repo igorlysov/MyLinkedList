@@ -34,12 +34,4 @@ public:
     }
 };
 
-class SizeException : public ArgumentException {
-public:
-    const char* what() noexcept override {
-        return "Empty list!";
-    }
-};
-
-
 #endif //LINKEDLIST__LAB_ARGUMENTEXCEPTION_H

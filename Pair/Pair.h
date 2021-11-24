@@ -22,7 +22,6 @@ public:
     /* Перегрузка проверки на равенство и неравенство */
     friend bool operator==(const Pair& left, const Pair& right);
     friend bool operator!=(const Pair& left, const Pair& right);
-
 };
 
 #endif //LINKEDLIST__LAB_PAIR_H

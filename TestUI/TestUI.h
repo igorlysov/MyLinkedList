@@ -46,7 +46,7 @@ public:
                   "5 - Swap two elements" << std::endl;
         while (std::cin >> choice) {
             try {
-                if (choice < 0 || choice > 5) {
+                if (choice < 1 || choice > 5) {
                     throw ChoiceException();
                 }
             } catch (ChoiceException& exception) {

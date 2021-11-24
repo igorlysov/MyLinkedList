@@ -23,13 +23,40 @@ private:
         up = 0,
         down = 1,
     };
+
+    /* Поиск узла в списке */
+    /* Теперь в зависимости от значения count будет осуществляться поиск
+     * либо сверху вниз (down), либо снизу вверх (up). При удалении элементов,
+     * например из центра списка, при прохождении его от первого элемента,
+     * наткнемся на пустую область памяти - поиск снизу вверх невозможен.
+     * В этом случае пойдем из конца в начало. */
+    Node& FindElement(int pos, int count=up) const {
+        Node* currentNode;
+        if (count == up) {
+            currentNode = _head;
+            for (int i = 1; i <= pos; i++)
+                currentNode = currentNode->_next;
+        } else {
+            currentNode = _tail;
+            for (int i = _size - 2; i >= pos; i--)
+                currentNode = currentNode->_prev;
+        }
+
+        return *currentNode;
+    }
 public:
     /* Конструкторы и деструкторы - инициализация списка */
+    /*
+     * List : ...
+     * */
     MyLinkedList() {
         _head = _tail = nullptr;
         _size = 0;
     }
 
+    /* MyLinkedList(3)
+     * List : null -> head = 3 = tail -> null
+     * */
     explicit MyLinkedList(Item newItem) {
         _size = 1;
         _head = _tail = new Node;
@@ -51,6 +78,10 @@ public:
         }
     }
 
+    /*
+     * MyLinkedList<int> list {1, 2, 3, 4}
+     * list : null -> head = 1 -> 2 -> 3 -> 4 = tail -> null
+     * */
     MyLinkedList(const std::initializer_list<Item>& initList) {
         _head = _tail = nullptr;
         _size = 0;
@@ -68,24 +99,7 @@ public:
     ~MyLinkedList() {
         Delete(0, _size);
     }
-    /* Поиск узла в списке */
-    Node& FindElement(int pos, int count=up) const {
-        if (pos < 0 || pos > _size) throw PositionException();
-
-        Node* currentNode;
-        if (count == up) {
-            currentNode = _head;
-            for (int i = 1; i <= pos; i++)
-                currentNode = currentNode->_next;
-        } else {
-            currentNode = _tail;
-            for (int i = _size - 2; i >= pos; i--)
-                currentNode = currentNode->_prev;
-        }
-
-        return *currentNode;
-    }
-    /* Добавление в конец и произвольное место */
+    /* Добавление в начало и произвольное место */
     MyLinkedList& Add(const Item& newData, int pos=0) {
         if (pos < 0) throw PositionException();
 
@@ -183,11 +197,12 @@ public:
         while (tempNode->_next != nullptr)
             tempNode = tempNode->_next;
 
-        while (tempNode != _head) {
+        while (tempNode && tempNode != _head) {
             std::cout << tempNode->_data << "<-";
             tempNode = tempNode->_prev;
         }
-        std::cout << tempNode->_data << std::endl;
+        if (tempNode) std::cout << tempNode->_data << std::endl;
+        else std::cout << "Empty list" << std::endl;
     }
     /* Взаимообмен двух узлов списка */
     void SwapTwo(Item elemFirst, Item elemSecond) {
